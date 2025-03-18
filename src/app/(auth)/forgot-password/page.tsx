@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 
-const forgotPassword = () => {
+const ForgotPassword = () => {
     const router = useRouter();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -86,4 +86,4 @@ const forgotPassword = () => {
     )
 }
 
-export default forgotPassword
+export default ForgotPassword
