@@ -4,6 +4,7 @@ import { DefaultJWT } from "next-auth/jwt";
 
 declare module 'next-auth' {
     interface User extends DefaultUser{
+        id?:string;
         _id?:string;
         isVerified?:boolean;
         isAcceptingMessages?:boolean;
