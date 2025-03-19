@@ -13,10 +13,11 @@ export async function DELETE(request: Request,{params}:{params:{messageid:string
     const user: User = session?.user as User
 
     if (!session || !user) {
-        return Response.json({
+        return new Response(
+            JSON.stringify({
             success: false,
             message: "Not Authenticated"
-        }, { status: 401 })
+        }), { status: 401 })
     }
 
     try {
@@ -25,20 +26,23 @@ export async function DELETE(request: Request,{params}:{params:{messageid:string
             {$pull : {messages:{_id:messageId}}}
         )
         if(updateResult.modifiedCount == 0){
-            return Response.json({
+            return new Response(
+                JSON.stringify({
                 success: false,
                 message: "Message not found or already deleted"
-            }, { status: 404 })
+            }), { status: 404 })
         }
-        return Response.json({
+        return new Response(
+            JSON.stringify({
             success: true,
             message: "Message Deleted"
-        }, { status: 202 })
+        }), { status: 202 })
     } catch (error) {
         console.log("Error in deleting message: ", error);
-        return Response.json({
+        return new Response(
+            JSON.stringify({
             success: false,
             message: "Error in deleting message!"
-        }, { status: 500 })
+        }), { status: 500 })
     }
 }
