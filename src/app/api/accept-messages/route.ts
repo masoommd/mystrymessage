@@ -58,15 +58,12 @@ export async function GET() {
             message: "Not Authenticated"
         }, { status: 401 })
     }
-    console.log("user", user);
-    console.log("session", session);
-    console.log("userId",user._id);
+    
     const userId = user._id;
 
 
     try {
         const foundUser = await UserModel.findById(userId);
-        console.log("userId",userId);
         if (!foundUser) {
             return Response.json({
                 success: false,
