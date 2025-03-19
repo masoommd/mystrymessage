@@ -8,18 +8,17 @@ import { ApiResponse } from '@/types/ApiResponse';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
 import { Loader2 } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
-export const dynamic = 'force-dynamic'
+
 
 const ResetPasswordPage = () => {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const paramsToken = searchParams.get('resetToken');
-    const username = searchParams.get('username');
+    const paramsToken = useParams();
+    const username = paramsToken.username;
     const [resetToken, setResetToken] = useState("");
     const [isTokenVerify, setIsTokenVerify] = useState(false);
     const [isCodeSubmitting, setIsCodeSubmitting] = useState(false);
@@ -35,7 +34,6 @@ const ResetPasswordPage = () => {
         defaultValues: { password: "", confirmPassword: "" },
     });
 
-    // Wrapped verifyToken in useCallback
     const verifyToken = useCallback(async (token: z.infer<typeof verifySchema>) => {
         setIsCodeSubmitting(true);
         try {
@@ -63,20 +61,7 @@ const ResetPasswordPage = () => {
         }
     }, [username, passwordForm, tokenForm]);
 
-    useEffect(() => {
-        const verifyParamsToken = async () => {
-            if (paramsToken && !isTokenVerify) {
-                try {
-                    await verifyToken({ code: paramsToken });
-                    setIsTokenVerify(true);
-                } catch (error) {
-                    console.error("Error verifying token from URL:", error);
-                    setIsTokenVerify(false);
-                }
-            }
-        };
-        verifyParamsToken();
-    }, [paramsToken, isTokenVerify, verifyToken]);
+    
 
     const onSubmitCode = (data: z.infer<typeof verifySchema>) => {
         verifyToken(data);

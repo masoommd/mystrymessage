@@ -31,7 +31,7 @@ const ForgotPassword = () => {
 
             toast.success("Success", { description: response.data.message });
             const username = response.data.username;
-            router.replace(`/reset-password?username=${username}`);
+            router.replace(`/reset-password/${username}`);
         } catch (error) {
             console.log("Error sending reset password email", error);
             const axiosError = error as AxiosError<ApiResponse>;
