@@ -14,8 +14,6 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 
-
-
 const ResetPasswordPage = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -35,8 +33,8 @@ const ResetPasswordPage = () => {
         resolver: zodResolver(resetPasswordSchema),
         defaultValues: { password: "", confirmPassword: "" },
     });
-    
 
+    // Wrapped verifyToken in useCallback
     const verifyToken = useCallback(async (token: z.infer<typeof verifySchema>) => {
         setIsCodeSubmitting(true);
         try {
@@ -62,7 +60,7 @@ const ResetPasswordPage = () => {
         } finally {
             setIsCodeSubmitting(false);
         }
-    },[username, passwordForm, tokenForm])
+    }, [username, passwordForm, tokenForm]);
 
     useEffect(() => {
         const verifyParamsToken = async () => {
@@ -76,7 +74,8 @@ const ResetPasswordPage = () => {
                 }
             }
         };
-        verifyParamsToken();}, [paramsToken, isTokenVerify, verifyToken]);
+        verifyParamsToken();
+    }, [paramsToken, isTokenVerify, verifyToken]);
 
     const onSubmitCode = (data: z.infer<typeof verifySchema>) => {
         verifyToken(data);
@@ -105,82 +104,83 @@ const ResetPasswordPage = () => {
     };
 
     return (
-        <Suspense >
+        // Added Suspense fallback
+        <Suspense fallback={<Loader2 className="animate-spin" />}>
             <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
-                <div className="text-center">
-                    <h1 className="text-4xl font-extrabold tracking-tight lg:text-3xl mb-6 text-left">
-                        {!isTokenVerify ? 'Verify Your Account' : 'Set New Password'}
-                    </h1>
-                    <p className="mb-4">
-                        {!isTokenVerify ? 'Enter the reset token sent to your email' : 'The reset token is verified, set your new password'}
-                    </p>
-                </div>
-                {!isTokenVerify ? (
-                    <Form {...tokenForm} key="tokenForm">
-                        <form onSubmit={tokenForm.handleSubmit(onSubmitCode)} className="space-y-6">
-                            <FormField
-                                name="code"
-                                control={tokenForm.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Verification Code</FormLabel>
-                                        <Input {...field} />
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            {
-                                isCodeSubmitting ? (
-                                    <>
-                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait...
-                                    </>
-                                ) : (
-                                    <Button type="submit">Verify Token</Button>
-                                )
-                            }
-                        </form>
-                    </Form>
-                ) : (
-                    <Form {...passwordForm} key="passwordForm">
-                        <form onSubmit={passwordForm.handleSubmit(onSubmitPassword)} className="space-y-6">
-                            <FormField
-                                name="password"
-                                control={passwordForm.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Password</FormLabel>
-                                        <Input {...field} type="password" />
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                name="confirmPassword"
-                                control={passwordForm.control}
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Confirm Password</FormLabel>
-                                        <Input {...field} />
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+                    <div className="text-center">
+                        <h1 className="text-4xl font-extrabold tracking-tight lg:text-3xl mb-6 text-left">
+                            {!isTokenVerify ? 'Verify Your Account' : 'Set New Password'}
+                        </h1>
+                        <p className="mb-4">
+                            {!isTokenVerify ? 'Enter the reset token sent to your email' : 'The reset token is verified, set your new password'}
+                        </p>
+                    </div>
+                    {!isTokenVerify ? (
+                        <Form {...tokenForm} key="tokenForm">
+                            <form onSubmit={tokenForm.handleSubmit(onSubmitCode)} className="space-y-6">
+                                <FormField
+                                    name="code"
+                                    control={tokenForm.control}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Verification Code</FormLabel>
+                                            <Input {...field} />
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                {
+                                    isCodeSubmitting ? (
+                                        <>
+                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait...
+                                        </>
+                                    ) : (
+                                        <Button type="submit">Verify Token</Button>
+                                    )
+                                }
+                            </form>
+                        </Form>
+                    ) : (
+                        <Form {...passwordForm} key="passwordForm">
+                            <form onSubmit={passwordForm.handleSubmit(onSubmitPassword)} className="space-y-6">
+                                <FormField
+                                    name="password"
+                                    control={passwordForm.control}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Password</FormLabel>
+                                            <Input {...field} type="password" />
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    name="confirmPassword"
+                                    control={passwordForm.control}
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Confirm Password</FormLabel>
+                                            <Input {...field} />
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
 
-                            {
-                                isPasswordSubmitting ? (
-                                    <>
-                                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait...
-                                    </>
-                                ) : (
-                                    <Button type="submit">Set Passsword</Button>
-                                )
-                            }
-                        </form>
-                    </Form>
-                )}
+                                {
+                                    isPasswordSubmitting ? (
+                                        <>
+                                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait...
+                                        </>
+                                    ) : (
+                                        <Button type="submit">Set Password</Button>
+                                    )
+                                }
+                            </form>
+                        </Form>
+                    )}
+                </div>
             </div>
-        </div>
         </Suspense>
     );
 };
