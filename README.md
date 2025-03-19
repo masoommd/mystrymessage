@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Bhai, tera repo link mila, aur jo tune bola uske hisaab se ek solid README.md likh diya hai. Maine tere project ke features, technologies, aur setup steps add kar diye. Ye raha tera customized README.md:
+markdown
+# Mystery Message
+
+Mystery Message is a web application that lets users receive real feedback from real people. It includes features like password reset, account verification, and message management, with message suggestions powered by Google AI.
+
+## Features
+
+- User authentication and authorization
+- Password reset functionality
+- Account verification
+- Message management
+- AI-powered message suggestions using Google AI
+
+## Technologies Used
+
+- Next.js
+- TypeScript
+- MongoDB
+- NextAuth.js
+- React Hook Form
+- Zod
+- Axios
+- Tailwind CSS
+- Google AI
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
+- Node.js (v14 or higher)
+- MongoDB instance (local or cloud)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/masoommd/mystrymessage.git
+   cd mystrymessage
+Install dependencies:
+bash
+npm install
+Set up environment variables:
+Create a .env.local file in the root directory.
+Add the following (replace with your own values):
+bash
+MONGODB_URI=your_mongodb_connection_string
+NEXTAUTH_SECRET=your_secret_key
+GOOGLE_AI_API_KEY=your_google_ai_api_key
+Run the application:
+bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open http://localhost:3000 in your browser.
+Usage
+Sign up or log in to your account.
+Verify your account via email (if implemented).
+Manage your messages and get AI-suggested feedback.
+Reset your password if needed through the reset functionality.
+Contributing
+Feel free to fork the repo, submit issues, or send pull requests. Contributions are welcome!
+License
+This project is licensed under the MIT License.
