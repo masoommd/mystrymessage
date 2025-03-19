@@ -14,14 +14,9 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 
-interface ResetPasswordPageProps {
-    searchParams: {
-        resetToken?: string;
-        username?: string;
-    };
-}
 
-const ResetPasswordPage = ({ searchParams: initialSearchParams }: ResetPasswordPageProps) => {
+
+const ResetPasswordPage = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const paramsToken = searchParams.get('resetToken');
@@ -81,7 +76,7 @@ const ResetPasswordPage = ({ searchParams: initialSearchParams }: ResetPasswordP
                 }
             }
         };
-        verifyParamsToken();}, [paramsToken]);
+        verifyParamsToken();}, [paramsToken, isTokenVerify, verifyToken]);
 
     const onSubmitCode = (data: z.infer<typeof verifySchema>) => {
         verifyToken(data);
