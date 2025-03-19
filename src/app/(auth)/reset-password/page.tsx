@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
 import { Loader2 } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -37,7 +37,7 @@ const ResetPasswordPage = () => {
     });
     
 
-    const verifyToken = async (token: z.infer<typeof verifySchema>) => {
+    const verifyToken = useCallback(async (token: z.infer<typeof verifySchema>) => {
         setIsCodeSubmitting(true);
         try {
             setResetToken(token.code);
@@ -62,7 +62,7 @@ const ResetPasswordPage = () => {
         } finally {
             setIsCodeSubmitting(false);
         }
-    };
+    },[username, passwordForm, tokenForm])
 
     useEffect(() => {
         const verifyParamsToken = async () => {
@@ -105,7 +105,8 @@ const ResetPasswordPage = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <Suspense fallback={<Loader2 className="animate-spin" />}>
+            <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
                 <div className="text-center">
                     <h1 className="text-4xl font-extrabold tracking-tight lg:text-3xl mb-6 text-left">
@@ -180,6 +181,7 @@ const ResetPasswordPage = () => {
                 )}
             </div>
         </div>
+        </Suspense>
     );
 };
 
