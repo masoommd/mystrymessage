@@ -1,11 +1,11 @@
     const prompt = ["Generate three open-ended and engaging questions for an anonymous social platform, separated by '||'.  Ensure the questions are diverse in topic and encourage thoughtful, creative responses.  Avoid questions that are too similar to each other.  The questions should be suitable for a diverse audience and promote positive interaction and related to human beings.Make sure this result is different from previous result","Create a list of three open-ended and engaging questions formatted as a single string. Each question should be separated by '||'. These questions are for an anonymous social messaging platform, like Qooh.me, and should be suitable for a diverse audience. Avoid personal or sensitive topics, focusing instead on universal themes that encourage friendly interaction. For example, your output should be structured like this: 'What’s a hobby you’ve recently started?||If you could have dinner with any historical figure, who would it be?||What’s a simple thing that makes you happy?'. Ensure the questions are intriguing, foster curiosity, and contribute to a positive and welcoming conversational environment and this is joke type.Make sure this result is different from previous result","Generate three open-ended and engaging questions for an anonymous social platform, separated by '||'.  Ensure the questions are diverse in topic and encourage thoughtful, creative responses.  Avoid questions that are too similar to each other.  The questions should be suitable for a diverse audience and promote positive interaction.Make sure this result is different from previous result"];
 //     
-import { createGoogleGenerativeAI, google } from '@ai-sdk/google';
+import { createGoogleGenerativeAI} from '@ai-sdk/google';
 import { generateText } from 'ai';
-const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || "YOUR_GOOGLE_API_KEY";
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || "";
 
 const googleAI = createGoogleGenerativeAI({
-  apiKey: GOOGLE_API_KEY, // Use the API Key
+  apiKey: GOOGLE_API_KEY, 
 });
 
 export async function POST(req: Request) {

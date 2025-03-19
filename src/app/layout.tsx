@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
     <html lang="en" >
       <head>
       <style>
-@import url('https://fonts.googleapis.com/css2?family=Gorditas:wght@400;700&display=swap');
+@import url(&apos;https://fonts.googleapis.com/css2?family=Gorditas:wght@400;700&family=Zilla+Slab+Highlight:wght@400;700&display=swap&apos;);
 </style>
       
       </head>

@@ -1,8 +1,11 @@
-import {NextAuthOptions} from "next-auth";
+import {NextAuthOptions, User} from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import dbConnect  from "@/lib/dbConnect";
 import UserModel from "@/models/User";
+
+
+
 
 export const authOptions : NextAuthOptions = {
     providers:[
@@ -13,9 +16,12 @@ export const authOptions : NextAuthOptions = {
                 identifier:{label:"Email", type:"text"},
                 password:{label:"Password", type:"password"}
             },
-            async authorize(credentials:any) : Promise<any>{
+            async authorize(credentials: Record<"identifier" | "password", string> | undefined): Promise<User | null> {
                 await dbConnect();
                 try {
+                    if (!credentials?.identifier || !credentials?.password) {
+                        throw new Error("Missing credentials");
+                      }
                     const user = await UserModel.findOne({
                         $or:[
                             {email:credentials.identifier},
@@ -33,12 +39,17 @@ export const authOptions : NextAuthOptions = {
                     const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
 
                     if(isPasswordCorrect){
-                        return user;
+                        return  {
+                            _id: user._id as string,
+                            username: user.username,
+                            isVerified: user.isVerified,
+                            isAcceptingMessages: user.isAcceptingMessages,
+                          };
                     } else{
                         throw new Error("Incorrect Password")
                     }
-                } catch (err:any) {
-                    throw new Error(err);
+                } catch (err) {
+                    throw new Error(err instanceof Error ? err.message : "An error occurred");
                 }
             }
         }),

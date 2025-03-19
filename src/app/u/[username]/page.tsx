@@ -25,7 +25,7 @@ const parseStringMessage = (messageString: string) => {
 const msg =
     "What's your favorite movie?||What's your dream job?||What’s a small act of kindness you were once shown that you’ll never forget?What’s a small act of kindness you were once shown that you’ll never forget?";
 
-const page = () => {
+const SendMessages = () => {
     const params = useParams<{ username: string }>()
     const { username } = params;
     const [isLoading, setIsLoading] = useState(false);
@@ -164,4 +164,4 @@ const page = () => {
     )
 }
 
-export default page
+export default SendMessages

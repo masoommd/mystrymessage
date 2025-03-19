@@ -16,12 +16,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react"
+import { Eye, EyeOff, Loader2 } from "lucide-react"
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
 
-const SignIn = () => {
+const Page = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
 
     //zod implementation
@@ -104,11 +105,22 @@ const SignIn = () => {
                                 <FormItem>
                                     <FormLabel>Password</FormLabel>
                                     <FormControl>
+                                        <div className="relative flex outline-1 rounded-md pr-2 ">
                                         <Input
-                                            type="password"
+                                        className="outline-none border-none
+                                        focus-visible:ring-0 focus:outline-none
+                                        focus-visible::border-0
+                                        "
+                                            type={!showPassword?"password":"text"}
                                             placeholder="password"
                                             {...field}
                                         />
+                                        <button
+                                        className="left-5"
+                                        type="button"
+                                        onClick={()=> setShowPassword(!showPassword)}> {showPassword?<Eye/> :<EyeOff/>}</button>
+                                        </div>
+                                        
                                     </FormControl>
 
                                     <FormMessage />
@@ -133,7 +145,7 @@ const SignIn = () => {
                 </Form>
                 <div className="text-center mt-4">
                     <p>
-                    Don't have an account?{' '}
+                    Don't have an account?&nbsp;&nbsp;&nbsp;
                         <Link href="/sign-up" className="text-blue-600 hover:text-blue-800">
                             Sign Up
                         </Link>
@@ -144,4 +156,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default Page;

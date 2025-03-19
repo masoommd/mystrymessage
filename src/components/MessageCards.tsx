@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -43,7 +43,7 @@ const MessageCards = ({ message, onMessageDelete }: MessageCardProps) => {
         }
     }
     return (
-        <Card className='mb-4 shadow-neutral-600 '>
+        <Card className='mb-4 hover:shadow-neutral-600 '>
             <CardHeader>
                 <div className="flex justify-between items-center">
                     <CardTitle>{message.content}</CardTitle>

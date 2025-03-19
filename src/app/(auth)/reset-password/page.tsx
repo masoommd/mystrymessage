@@ -76,12 +76,12 @@ const ResetPasswordPage = ({ searchParams: initialSearchParams }: ResetPasswordP
                     await verifyToken({ code: paramsToken });
                     setIsTokenVerify(true);
                 } catch (error) {
+                    console.error("Error verifying token from URL:", error);
                     setIsTokenVerify(false);
                 }
             }
         };
-        verifyParamsToken();
-    }, [paramsToken]);
+        verifyParamsToken();}, [paramsToken]);
 
     const onSubmitCode = (data: z.infer<typeof verifySchema>) => {
         verifyToken(data);
