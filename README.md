@@ -1,5 +1,3 @@
-Bhai, tera repo link mila, aur jo tune bola uske hisaab se ek solid README.md likh diya hai. Maine tere project ke features, technologies, aur setup steps add kar diye. Ye raha tera customized README.md:
-markdown
 # Mystery Message
 
 Mystery Message is a web application that lets users receive real feedback from real people. It includes features like password reset, account verification, and message management, with message suggestions powered by Google AI.
