@@ -52,7 +52,7 @@ import {
           </Row>
           <Row>
             <Button
-              href={`${process.env.URL}/verify/${username}`}
+              href={`https://mystrymessage-plum.vercel.app//verify/${username}`}
               style={{ color: '#61dafb' }}
             >
               Verify here

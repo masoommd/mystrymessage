@@ -52,7 +52,7 @@ import {
           </Row>
           <Row>
             <Button
-              href={`${process.env.URL}/reset-password/?resetToken=${resetToken}&username=${username}`}
+              href={`$https://mystrymessage-plum.vercel.app//reset-password/${username}`}
               style={{ color: '#61dafb' }}
             >
               Reset Password
