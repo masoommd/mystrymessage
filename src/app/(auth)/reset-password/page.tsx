@@ -8,15 +8,15 @@ import { ApiResponse } from '@/types/ApiResponse';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios, { AxiosError } from 'axios';
 import { Loader2 } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 
-const ResetPasswordPage = () => {
+const ResetPasswordPage = (request:Request) => {
     const router = useRouter();
-    const searchParams = useSearchParams();
+    const { searchParams } = new URL(request.url);
     const paramsToken = searchParams.get('resetToken');
     const username = searchParams.get('username');
     const [resetToken, setResetToken] = useState("");
